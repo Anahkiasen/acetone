@@ -1,18 +1,24 @@
 {
-    "name": "anahkiasen/acetone",
-    "description": "A fluent wrapper around Assetic",
-    "require": {
-        "kriswallsmith/assetic": "dev-master"
-    },
-    "require-dev": {
-        "mockery/mockery": "dev-master"
-    },
-    "license": "MIT",
-    "authors": [
-        {
-            "name": "Maxime Fabre",
-            "email": "ehtnam6@gmail.com"
-        }
-    ],
-    "minimum-stability": "dev"
+	"name": "anahkiasen/acetone",
+	"description": "A fluent assets pipeline",
+	"require": {
+		"kriswallsmith/assetic": "dev-master",
+		"illuminate/support": "~4"
+	},
+	"require-dev": {
+		"mockery/mockery": "dev-master"
+	},
+	"autoload": {
+		"psr-0": {
+			"Acetone": "src"
+		}
+	},
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Maxime Fabre",
+			"email": "ehtnam6@gmail.com"
+		}
+	],
+	"minimum-stability": "dev"
 }

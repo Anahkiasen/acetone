@@ -1,10 +1,14 @@
 
 
-Code Coverage Report:  
-  2013-11-25 15:11:01  
-                       
- Summary:              
-  Classes:        (0/0)
-  Methods:        (0/0)
-  Lines:          (0/0)
+Code Coverage Report:     
+  2013-11-25 15:25:33     
+                          
+ Summary:                 
+  Classes: 100.00% (2/2)  
+  Methods: 100.00% (5/5)  
+  Lines:   100.00% (12/12)
 
+\Acetone::Asset
+  Methods: 100.00% ( 1/ 1)   Lines: 100.00% (  1/  1)
+\Acetone::Collection
+  Methods: 100.00% ( 4/ 4)   Lines: 100.00% ( 11/ 11)
