@@ -3,8 +3,8 @@
 	"description": "A lightweight assets pipeline to use over Grunt",
 	"require": {
 		"illuminate/support": "~4",
-		"illuminate/html": "dev-master",
-		"illuminate/routing": "dev-master"
+		"illuminate/html": "~4",
+		"illuminate/routing": "~4"
 	},
 	"require-dev": {
 		"mockery/mockery": "dev-master"
