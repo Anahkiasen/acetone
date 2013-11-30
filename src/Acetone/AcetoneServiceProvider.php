@@ -1,12 +1,12 @@
 <?php
 namespace Acetone;
 
+use Illuminate\Container\Container;
+use Illuminate\Html\HtmlBuilder;
 use Illuminate\Http\Request;
 use Illuminate\Routing\RouteCollection;
 use Illuminate\Routing\UrlGenerator;
 use Illuminate\Support\ServiceProvider;
-use Illuminate\Html\HtmlBuilder;
-use Illuminate\Container\Container;
 
 /**
  * Bind the various Acetone classes to Laravel
@@ -67,8 +67,6 @@ class AcetoneServiceProvider extends ServiceProvider
 	 */
 	public function bindCoreClasses(Container $app)
 	{
-		$app->bindIf('files', 'Illuminate\Filesystem\Filesystem');
-
 		$app->bindIf('request', function ($app) {
 			return Request::createFromGlobals();
 		});
