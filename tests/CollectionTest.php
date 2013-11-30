@@ -11,15 +11,6 @@ class CollectionTest extends AcetoneTests
 		$this->assertInstanceOf('Illuminate\Support\Collection', $collection);
 	}
 
-	public function testCanGetAndSetCollectionName()
-	{
-		$collection = new Collection('foobar');
-		$this->assertEquals('foobar', $collection->getName());
-
-		$collection->setName('changed');
-		$this->assertEquals('changed', $collection->getName());
-	}
-
 	public function testCanSetAssets()
 	{
 		$collection = new Collection('foobar');
@@ -28,8 +19,8 @@ class CollectionTest extends AcetoneTests
 			__DIR__.'/dummies/test.js',
 		));
 
-		$this->assertEquals('test.css', $collection[0]->getBasename());
-		$this->assertEquals('test.js', $collection[1]->getBasename());
+		$this->assertEquals('test.css', $collection['css'][0]->getBasename());
+		$this->assertEquals('test.js', $collection['js'][0]->getBasename());
 	}
 
 	public function testCanCreateCollectionWithAssetsViaArray()
@@ -39,7 +30,7 @@ class CollectionTest extends AcetoneTests
 			__DIR__.'/dummies/test.js',
 		));
 
-		$this->assertEquals('test.css', $collection[0]->getBasename());
-		$this->assertEquals('test.js', $collection[1]->getBasename());
+		$this->assertEquals('test.css', $collection['css'][0]->getBasename());
+		$this->assertEquals('test.js', $collection['js'][0]->getBasename());
 	}
 }

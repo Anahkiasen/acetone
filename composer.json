@@ -1,9 +1,10 @@
 {
 	"name": "anahkiasen/acetone",
-	"description": "A fluent assets pipeline",
+	"description": "A lightweight assets pipeline to use over Grunt",
 	"require": {
-		"kriswallsmith/assetic": "dev-master",
-		"illuminate/support": "~4"
+		"illuminate/support": "~4",
+		"illuminate/html": "dev-master",
+		"illuminate/routing": "dev-master"
 	},
 	"require-dev": {
 		"mockery/mockery": "dev-master"

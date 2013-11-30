@@ -1,10 +1,12 @@
 <?php
 namespace Acetone;
 
+use Illuminate\Support\Collection as IlluminateCollection;
+
 /**
  * A collection of assets
  */
-class Collection extends \Illuminate\Support\Collection
+class Collection extends IlluminateCollection
 {
 	/**
 	 * The name of the collection
@@ -36,34 +38,12 @@ class Collection extends \Illuminate\Support\Collection
 	 */
 	public function setAssets(array $assets = array())
 	{
+		$items = array();
 		foreach ($assets as $key => $value) {
-			$assets[$key] = new Asset($value);
+			$asset = new Asset($value);
+			$items[$asset->getExtension()][] = $asset;
 		}
 
-		$this->items = $assets;
-	}
-
-	////////////////////////////////////////////////////////////////////
-	///////////////////////////////// NAME /////////////////////////////
-	////////////////////////////////////////////////////////////////////
-
-	/**
-	 * Set the name of the collection
-	 *
-	 * @param string $name
-	 */
-	public function setName($name)
-	{
-		$this->name = $name;
-	}
-
-	/**
-	 * Get the name of the collection
-	 *
-	 * @return string
-	 */
-	public function getName()
-	{
-		return $this->name;
+		$this->items = $items;
 	}
 }
