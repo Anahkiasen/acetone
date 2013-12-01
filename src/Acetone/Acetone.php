@@ -41,7 +41,7 @@ class Acetone
 	{
 		$assets = (array) $assets;
 		foreach ($assets as $key => $asset) {
-			$assets[$key] = $this->app['path.public'].'/'.$asset;
+			$assets[$key] = $asset;
 		}
 
 		$this->collections[$name] = new Collection($name, $assets);
@@ -64,8 +64,13 @@ class Acetone
 		if ($collection = array_get($this->collections, $name)) {
 			$assets = (array) $collection->get($type);
 			foreach ($assets as $asset) {
+				$path = $this->getPath($asset);
+				if (!$asset->isRemote() and !file_exists($this->app['path.public'].'/'.$path)) {
+					continue;
+				}
+
 				$type = $asset->getExtension() == 'css' ? 'style' : 'script';
-				$contents .= $this->app['html']->$type($this->getPath($asset));
+				$contents .= $this->app['html']->$type($path);
 			}
 		}
 
@@ -102,6 +107,10 @@ class Acetone
 		return $this->show($name, 'js');
 	}
 
+	////////////////////////////////////////////////////////////////////
+	//////////////////////////////// ASSETS ////////////////////////////
+	////////////////////////////////////////////////////////////////////
+
 	/**
 	 * Get the path of an asset
 	 *
@@ -111,9 +120,6 @@ class Acetone
 	 */
 	protected function getPath(Asset $asset)
 	{
-		$path = $this->app['env'] == 'local' ? $asset->getRealpath() : $asset->getMinifiedPath();;
-		$path = str_replace($this->app['path.public'], null, $path);
-
-		return $path;
+		return $this->app['env'] == 'local' ? $asset->getRealpath() : $asset->getMinifiedPath();
 	}
 }
