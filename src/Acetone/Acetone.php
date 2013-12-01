@@ -39,6 +39,11 @@ class Acetone
 	 */
 	public function collection($name, $assets)
 	{
+		$assets = (array) $assets;
+		foreach ($assets as $key => $asset) {
+			$assets[$key] = $this->app['path.public'].'/'.$asset;
+		}
+
 		$this->collections[$name] = new Collection($name, $assets);
 	}
 
@@ -49,19 +54,52 @@ class Acetone
 	 *
 	 * @return Collection
 	 */
-	public function show($collection)
+	public function show($name, $type = null)
 	{
-		list($name, $type) = explode('.', $collection);
 		$contents = '';
+		if (!$type) {
+			list($name, $type) = explode('.', $name);
+		}
 
 		if ($collection = array_get($this->collections, $name)) {
 			$assets = (array) $collection->get($type);
 			foreach ($assets as $asset) {
-				$contents .= $this->app['html']->style($this->getPath($asset));
+				$type = $asset->getExtension() == 'css' ? 'style' : 'script';
+				$contents .= $this->app['html']->$type($this->getPath($asset));
 			}
 		}
 
 		return trim($contents);
+	}
+
+	/**
+	 * Display multiple CSS files directly
+	 *
+	 * @param array $assets
+	 *
+	 * @return string
+	 */
+	public function stylesheets($assets)
+	{
+		$name = sizeof($this->collections);
+		$this->collection($name, $assets);
+
+		return $this->show($name, 'css');
+	}
+
+	/**
+	 * Display multiple JS files directly
+	 *
+	 * @param array $assets
+	 *
+	 * @return string
+	 */
+	public function scripts($assets)
+	{
+		$name = sizeof($this->collections);
+		$this->collection($name, $assets);
+
+		return $this->show($name, 'js');
 	}
 
 	/**
@@ -73,8 +111,8 @@ class Acetone
 	 */
 	protected function getPath(Asset $asset)
 	{
-		$path = str_replace($this->app['path.public'], null, $asset->getRealpath());
-		$path = $this->app['env'] == 'local' ? $path : str_replace('.'.$asset->getExtension(), '.min.'.$asset->getExtension(), $path);
+		$path = $this->app['env'] == 'local' ? $asset->getRealpath() : $asset->getMinifiedPath();;
+		$path = str_replace($this->app['path.public'], null, $path);
 
 		return $path;
 	}

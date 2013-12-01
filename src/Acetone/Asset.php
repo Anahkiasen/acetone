@@ -8,5 +8,15 @@ use SplFileObject;
  */
 class Asset extends SplFileObject
 {
-	// ...
+	/**
+	 * Get the minified version of the path
+	 *
+	 * @return string
+	 */
+	public function getMinifiedPath()
+	{
+		$extension = $this->getExtension();
+
+		return str_replace('.'.$extension, '.min.'.$extension, $this->getRealpath());
+	}
 }

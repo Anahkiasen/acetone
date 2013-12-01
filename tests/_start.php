@@ -17,5 +17,6 @@ abstract class AcetoneTests extends PHPUnit_Framework_TestCase
 
 		$this->app['request'] = $request;
 		$this->app['env'] = 'local';
+		$this->app['path.public'] = __DIR__;
 	}
 }
