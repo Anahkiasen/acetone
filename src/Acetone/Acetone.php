@@ -2,6 +2,7 @@
 namespace Acetone;
 
 use Illuminate\Container\Container;
+use Illuminate\Support\Str;
 
 class Acetone
 {
@@ -65,11 +66,12 @@ class Acetone
 			$assets = (array) $collection->get($type);
 			foreach ($assets as $asset) {
 				$path = $this->getPath($asset);
-				if (!$asset->isRemote() and !file_exists($this->app['path.public'].'/'.$path)) {
+				if (!$asset->isRemote() and !file_exists($path)) {
 					continue;
 				}
 
 				$type = $asset->getExtension() == 'css' ? 'style' : 'script';
+				$path = str_replace($this->app['path.public'], null, $path);
 				$contents .= $this->app['html']->$type($path);
 			}
 		}
