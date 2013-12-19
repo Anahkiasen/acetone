@@ -67,6 +67,10 @@ class AcetoneServiceProvider extends ServiceProvider
 	 */
 	public function bindCoreClasses(Container $app)
 	{
+		if ($app->bound('events')) {
+			return $app;
+		}
+
 		$app->bindIf('request', function ($app) {
 			return Request::createFromGlobals();
 		});
