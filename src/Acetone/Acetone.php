@@ -66,7 +66,7 @@ class Acetone
 			$assets = (array) $collection->get($type);
 			foreach ($assets as $asset) {
 				$path = $this->getPath($asset);
-				if (!$asset->isRemote() and !file_exists($path)) {
+				if (!$asset->isRemote() and !file_exists(public_path($path))) {
 					continue;
 				}
 
